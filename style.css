@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif; /* Adding font-family for the entire body */
+}
+
+.header-wrapper {
+    background-color: white;
+    position: relative;
+    z-index: 2;
+    height: 150px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center; 
+    padding: 0 30px;
+}
+
+.logo img {
+    width: 200px; 
+    height: auto; 
+    margin-right: 10px; 
+}
+
+.logotext {
+    color: black; 
+    font-weight: bold; 
+    font-size: 18px; 
+}
+
+.container {
+    text-align: center;
+    margin-top: 20px; 
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%; 
+    margin: 0 auto; 
+}
+
+th, td {
+    border: 1px solid #000000;
+    padding: 8px;
+    font-weight: 100;
+    font-size: 10px;
+}
+
+th {
+    background-color: orangered;
+}
+
+/* Media query for mobile devices */
+@media only screen and (max-width: 600px) {
+    .header-wrapper {
+        height: auto; /* Allow header height to adjust based on content */
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center;
+        padding: 10px 5px; /* Adjust padding for smaller screens */
+    }
+
+    .logo img {
+        width: 120px; /* Further decrease logo size for smaller screens */
+        margin-bottom: 5px; /* Add some space below logo */
+    }
+
+    .logotext {
+        font-size: 12px; /* Further decrease font size for smaller screens */
+    }
+
+    table {
+        font-size: 6px; /* Further decrease font size for smaller screens */
+    }
+}
+
