@@ -1,27 +1,38 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const searchInput = document.getElementById('searchInput');
-    const dataTable = document.getElementById('dataTable');
-    const rows = dataTable.getElementsByTagName('tr');
-  
-    searchInput.addEventListener('keyup', function(event) {
-      const searchText = event.target.value.toLowerCase();
-      for (let i = 1; i < rows.length; i++) { // Start from 1 to skip header row
-        const row = rows[i];
-        const cells = row.getElementsByTagName('td');
-        let found = false;
-        for (let j = 0; j < cells.length; j++) {
-          const cell = cells[j];
-          if (cell.textContent.toLowerCase().includes(searchText)) {
-            found = true;
-            break;
-          }
-        }
-        if (found) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
-      }
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("searchInput");
+  const dataTable = document.getElementById("dataTable");
+  const rows = Array.from(dataTable.querySelectorAll("tbody tr"));
+
+  const sortAscBtn = document.getElementById("sortAsc");
+  const sortDescBtn = document.getElementById("sortDesc");
+
+  // Search functionality
+  searchInput.addEventListener("keyup", function (event) {
+    const searchText = event.target.value.toLowerCase();
+    rows.forEach((row) => {
+      const cells = Array.from(row.getElementsByTagName("td"));
+      const found = cells.some((cell) =>
+        cell.textContent.toLowerCase().includes(searchText)
+      );
+      row.style.display = found ? "" : "none";
     });
   });
-  
+
+  // Sort functionality
+  const sortTable = (ascending) => {
+    const sortedRows = rows.sort((a, b) => {
+      const aVal = parseFloat(a.cells[2].textContent);
+      const bVal = parseFloat(b.cells[2].textContent);
+      return ascending ? aVal - bVal : bVal - aVal;
+    });
+
+    // Update table and re-number S.No
+    sortedRows.forEach((row, index) => {
+      row.cells[0].textContent = index + 1;
+      dataTable.querySelector("tbody").appendChild(row);
+    });
+  };
+
+  sortAscBtn.addEventListener("click", () => sortTable(true));
+  sortDescBtn.addEventListener("click", () => sortTable(false));
+});
